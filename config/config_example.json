@@ -1,0 +1,75 @@
+{
+  // this is main check subsection, required
+  "endpoint_checks": {
+    // alert name
+    "OM1_CHAIN": {
+      //url to check, required
+      "url": "http://172.16.211.57:8220/idr-rtn/idr-rtn/chain-service?wsdl",
+      // http method to use(GET, POST, HEAD), required
+      "method": "GET",
+      // expected http code, required
+      "status_code": "200",
+      // check web resourse response time
+      "check_response_time": "true",
+      // check web resourse response is not empty
+      "check_page_non_empty": "true",
+      // labels can include any names and values but priority, summary, instance are required
+      "labels": {
+        "priority": "critical",
+        "summary": "Om1 Chain endpoint",
+        "instance": "srv-tgw-01"
+      }
+    }
+  },
+  // this is main check subsection, required
+  "process_checks": {
+    // alert name
+    "bst_cim1": {
+      // a string used for process search
+      "search_name": "=/opt/glassfish3/glassfish/domains/bst_cim1",
+      // labels can include any names and values but priority, summary, instance are required
+      "labels": {
+        "priority": "critical",
+        "summary": "Count bst_cim1 processes",
+        "instance": "srv-tgw-01"
+      }
+    }
+  },
+  // this is main check subsection, required
+  "commandline_checks": {
+    // alert name
+    "Linux_check": {
+      // a string to be executed on host; {0} marks the place to place argument; required
+      "command": "uname -a | grep {0} | wc -l",
+      // argument to be inserted into the command; required, if you want to omit it use an empty string ""
+      "args": "Linux",
+      // labels can include any names and values but priority, summary, instance are required
+      "labels": {
+        "priority": "critical",
+        "summary": "Operation system check",
+        "instance": "srv-tgw-01"
+      }
+    }
+  },
+  // this is main check subsection, required
+  "validator_checks": {
+    "srv-ais-01": {
+      "url": "http://192.168.34.2:8080/MVDWS/PassportWS",
+      "label": "MVD_Validator",
+      "body": "resources/MVD.xml",
+      "string_to_check": "Машиночитаемый документ",
+      "priority": "critical",
+      "summary": "text",
+      "description": "many text"
+    }
+  },
+    "process_counter": {
+    "Process counter": {
+      "labels": {
+        "priority": "critical",
+        "summary": "Process with max copies at the moment",
+        "instance": "srv-tgw-01"
+      }
+    }
+  }
+}
